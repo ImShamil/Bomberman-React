@@ -226,6 +226,8 @@ function GameField(){
         j++;
       }
       i--;
+      //Hello world
+    
     }
   }
 
