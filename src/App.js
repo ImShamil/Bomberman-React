@@ -227,7 +227,7 @@ function GameField(){
       }
       i--;
       //Hello world
-    //Third commit
+    
     }
   }
 
