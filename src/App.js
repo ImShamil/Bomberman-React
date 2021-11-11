@@ -84,7 +84,72 @@ function GameField(){
       case 3: return 'blue'
     }
   }
-   
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+  function moveMonsterDirection(){
+    let direction=getRandomInt(3);
+    switch (direction) {
+      case 0: return "UP"
+      case 1: return 'DOWN'
+      case 2: return 'LEFT'
+      case 3: return 'RIGHT'
+    }
+  }
+
+  function moveMonster(){
+    for (let i=0;i<N;i++){
+      for(let j=0;j<M;j++){
+        if (a[i][j]===1){
+          let direction=moveMonsterDirection();
+          if (direction ==='UP'){
+            if(a[i-1][j]===0 || a[i-1][j]===3 ){
+              let temp=[...a]
+              temp[i-1][j] = 1;
+              temp[i][j] = 0;
+              setA(temp);
+            }
+          }
+          if (direction ==='DOWN'){
+            if(a[i+1][j]===0 || a[i+1][j]===3 ){
+              let temp=[...a]
+              temp[i+1][j] = 1;
+              temp[i][j] = 0;
+              setA(temp);
+            }
+          }
+          if (direction ==='LEFT'){
+            if(a[i][j-1]===0 || a[i][j-1]===3 ){
+              let temp=[...a]
+              temp[i][j-1] = 1;
+              temp[i][j] = 0;
+              setA(temp);
+            }
+          }
+          if (direction ==='RIGHT'){
+            if(a[i][j+1]===0 || a[i][j+1]===3 ){
+              let temp=[...a]
+              temp[i][j+1] = 1;
+              temp[i][j] = 0;
+              setA(temp);
+            }
+          }
+          
+        }
+       
+      }
+    }
+    // for (let i=0;i<N;i++){
+    //   for (let j=0;j<M;j++){
+    //     if (a[i][j]===-1){
+    //       let temp=[...a]
+    //       temp[i][j] = 1;
+    //     }
+    //   }
+    // }
+      
+  }
+  
 
   function moveToLeft() {
     var i, j;
@@ -227,11 +292,15 @@ function GameField(){
       }
       i--;
       //Hello world
-    
+    //Third commit
     }
-  }
 
-  
+    
+  }
+ let timer = setInterval(moveMonster,1000)
+
+  // clearInterval(timerId)
+ 
   
   React.useMemo(() => {
     document.addEventListener(`keydown`, event => {
@@ -252,13 +321,16 @@ function GameField(){
     }, false);
   }, []);
 
+  
 
-  const listItem=a.map((val)=> <div style={{height:40}}>{val.map((item)=><canvas style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}</canvas>)}</div>
+  const listItem=a.map((val,index)=> <div style={{height:40}}>{val.map((item,inde)=><canvas style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}</canvas>)}</div>
       );    
 
           
   return (
   <div style={{height:40}}>{listItem}</div>);
+
+  
 }
 
 
