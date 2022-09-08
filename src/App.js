@@ -2,56 +2,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
-// function AddPersonForm(props){
-//   const [person, setPerson]=useState("");
-  
-//   function handleChange(e){
-//   setPerson(e.target.value);
-//   }
-//   function handleSubmit(e){
-//     if(person !==''){
-//       props.handleSubmit(person);
-//       setPerson('');
-//     }
-//     e.preventDefault();
-//   }
-//   return(
-//     <form onSubmit={handleSubmit}>
-//       <input type="text" placeholder="Add new contact" onChange={handleChange} value={person} />
-//       <button type="submit" >Add</button>
-//     </form>
-//   );
-// }
 
-// function PeopleList(props){
-//   const arr= props.data;
-//   const listItem=arr.map((val,index)=>
-//   <li key={index}>{val}</li>
-//   );
-//   return <ul>{listItem}</ul>;
-// }
-
-// function ContactManager(props){
-//   const[contacts, setContacts]=useState(props.data);
-  
-//   function addPerson(name){
-//     setContacts([...contacts,name]);
-//   }
-  
-//   return(
-//     <div>
-//       <AddPersonForm handleSubmit={addPerson} />
-//       <PeopleList data={contacts}/>
-//     </div>
-//   );
-// }
-// const contacts = ["James Smith", "Thomas Anderson","Bruce Wayne"];
-// const [a, setA] = useState([
-//   ["1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"],
-//   ["1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"],
-//   ["1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"],
-//   ["1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2"]
-// ]);
 function GameField(){
   const [a, setA] = useState([
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
@@ -72,10 +23,12 @@ function GameField(){
     [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2],
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
   ]);
-  var N = 15, M = 15;
-  var steps = 0;
-  var finish = 0;
-  
+
+  let N = 15, M = 15;
+  let steps = 0;
+  let finish = 0;
+
+  console.log("Я вызываюсь");
   function setColor(color) {
     switch (color) {
       case 0: return "grey"
@@ -84,11 +37,13 @@ function GameField(){
       case 3: return 'blue'
     }
   }
+
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
+
   function moveMonsterDirection(){
-    let direction=getRandomInt(3);
+    let direction=getRandomInt(4);
     switch (direction) {
       case 0: return "UP"
       case 1: return 'DOWN'
@@ -98,40 +53,34 @@ function GameField(){
   }
 
   function moveMonster(){
+    let temp=a.slice();
     for (let i=0;i<N;i++){
       for(let j=0;j<M;j++){
         if (a[i][j]===1){
           let direction=moveMonsterDirection();
           if (direction ==='UP'){
-            if(a[i-1][j]===0 || a[i-1][j]===3 ){
-              let temp=[...a]
+
+            if(temp[i-1][j]===0 || temp[i-1][j]===3 ){
               temp[i-1][j] = 1;
               temp[i][j] = 0;
-              setA(temp);
             }
           }
           if (direction ==='DOWN'){
-            if(a[i+1][j]===0 || a[i+1][j]===3 ){
-              let temp=[...a]
+            if(temp[i+1][j]===0 || temp[i+1][j]===3 ){
               temp[i+1][j] = 1;
               temp[i][j] = 0;
-              setA(temp);
             }
           }
           if (direction ==='LEFT'){
-            if(a[i][j-1]===0 || a[i][j-1]===3 ){
-              let temp=[...a]
+            if(temp[i][j-1]===0 || temp[i][j-1]===3 ){
               temp[i][j-1] = 1;
               temp[i][j] = 0;
-              setA(temp);
             }
           }
           if (direction ==='RIGHT'){
-            if(a[i][j+1]===0 || a[i][j+1]===3 ){
-              let temp=[...a]
+            if(temp[i][j+1]===0 || temp[i][j+1]===3 ){
               temp[i][j+1] = 1;
               temp[i][j] = 0;
-              setA(temp);
             }
           }
           
@@ -139,44 +88,37 @@ function GameField(){
        
       }
     }
-    // for (let i=0;i<N;i++){
-    //   for (let j=0;j<M;j++){
-    //     if (a[i][j]===-1){
-    //       let temp=[...a]
-    //       temp[i][j] = 1;
-    //     }
-    //   }
-    // }
-      
+    return temp;
   }
   
 
   function moveToLeft() {
-    var i, j;
+    let i, j;
+    let temp=a.slice();
     i = 0;
     while (i < N) {
       j = 1;
       while (j < M) {
         if (a[i][j] === 3) {
           if (a[i][j - 1] === 0) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i][j - 1] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             steps++;
           }
           else if (a[i][j - 1] === 4) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i][j - 1] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             steps++;
           }
           else if (a[i][j - 1] === 1) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i][j - 1] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             finish++;
           }
         }
@@ -184,35 +126,36 @@ function GameField(){
       }
       i++;
     }
+    return temp;
   }
     
   function moveToRight() {
-    // console.log ('event');
-     var i, j;
+     let i, j;
+     let temp=a.slice();
      i = 0;
      while (i < N) {
        j = M - 2;
        while (j >= 0) {
          if (a[i][j] == 3) {
            if (a[i][j + 1] == 0) {
-             const temp = [...a];
+            //  const temp = [...a];
              temp[i][j + 1] = 3;
              temp[i][j] = 0;
-             setA(temp);
+            //  setA(temp);
              steps++;
            }
            else if (a[i][j + 1] == 4) {
-             const temp = [...a];
+            //  const temp = [...a];
              temp[i][j + 1] = 3;
              temp[i][j] = 0;
-             setA(temp);
+            //  setA(temp);
              steps++;
            }
            else if (a[i][j + 1] == 1) {
-             const temp = [...a];
+            //  const temp = [...a];
              temp[i][j + 1] = 3;
              temp[i][j] = 0;
-             setA(temp);
+            //  setA(temp);
              finish++;
              
            }
@@ -221,34 +164,36 @@ function GameField(){
        }
        i++;
      }
+     return temp;
    }
 
    function moveToUp() {
-    var i, j;
+    let i, j;
+    let temp=a.slice();
     i = 0;
     while (i < N) {
       j = 0;
       while (j < M) {
         if (a[i][j] == 3) {
           if (a[i - 1][j] == 0) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i - 1][j] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             steps++;
           }
           else if (a[i - 1][j] == 4) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i - 1][j] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             steps++;
           }
           else if (a[i - 1][j] == 1) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i - 1][j] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             finish++;
             
           }
@@ -257,33 +202,36 @@ function GameField(){
       }
       i++;
     }
+    return temp;
   }
+
   function moveToDown() {
-    var i, j;
+    let i, j;
+    let temp=a.slice();
     i = N - 2;
     while (i >= 0) {
       j = 0;
       while (j < M) {
         if (a[i][j] == 3) {
           if (a[i + 1][j] == 0) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i + 1][j] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             steps++;
           }
           else if (a[i + 1][j] == 4) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i + 1][j] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             steps++;
           }
           else if (a[i + 1][j] == 1) {
-            const temp = [...a];
+            // const temp = [...a];
             temp[i + 1][j] = 3;
             temp[i][j] = 0;
-            setA(temp);
+            // setA(temp);
             finish++;
             
           }
@@ -291,32 +239,41 @@ function GameField(){
         j++;
       }
       i--;
-      //Hello world
-    //Third commit
     }
-
+    return temp;
     
   }
- let timer = setInterval(moveMonster,1000)
 
-  // clearInterval(timerId)
- 
-  
+let temp = moveMonster();
+
+useEffect(()=>{
+  setTimeout(function run(){
+    console.log('Вызов');
+    if(temp!==a){
+      setA(temp);
+    }
+  },1000);
+},[temp]);
+
   React.useMemo(() => {
     document.addEventListener(`keydown`, event => {
       console.log(event);
       event.preventDefault();
       if (event.keyCode == `37`) {
-        moveToLeft();
+        temp= moveToLeft();
+        setA(temp);
       }
       if (event.keyCode == `38`) {
-        moveToUp();
+        temp= moveToUp();
+       setA(temp);
       }
       if (event.keyCode == `39`) {
-        moveToRight();
+        temp= moveToRight();
+       setA(temp);
       }
       if (event.keyCode == `40`) {
-        moveToDown();
+        temp = moveToDown();
+        setA(temp);
       }
     }, false);
   }, []);
