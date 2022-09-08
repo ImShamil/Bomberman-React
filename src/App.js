@@ -289,13 +289,13 @@ useEffect(()=>{
 
   
 
-  const listItem=a.map((val,index)=> <div style={{height:40}}>{val.map((item,inde)=><div style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}</div>)}</div>
+  const listItem=a.map((val,index)=> <div style={{height:40,display:'flex'}}>{val.map((item,inde)=><div style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}{inde}</div>)}</div>
       );    
 
           
   return (
   <div >
-    <div style={{display:'flex'}}>{listItem}</div>
+    <div >{listItem}</div>
     {/* <input autoFocus onKeyDown={oneKeyHandle} ></input> */}
   </div>);
 }
