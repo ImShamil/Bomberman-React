@@ -2,8 +2,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
-
-function GameField(){
+function App() {
   const [a, setA] = useState([
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
     [2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 0, 2],
@@ -88,7 +87,7 @@ function GameField(){
        
       }
     }
-    return temp;
+    setA(temp);
   }
   
 
@@ -240,29 +239,24 @@ function GameField(){
       }
       i--;
     }
-    return temp;
+    setA(temp);
     
   }
-
-let temp = moveMonster();
 
 useEffect(()=>{
   setTimeout(function run(){
     console.log('Вызов');
-    if(temp!==a){
-      setA(temp);
+    moveMonster();
+  },2500);
+  
+},[a]);
+
+let oneKeyHandle=(e)=>{
+  let key=e.keyCode;
+  if (key == `40`) {
+      moveToDown();     
     }
-  },1000);
-},[temp]);
-
-
-// let oneKeyHandle=(e)=>{
-//   let key=e.keyCode;
-//   if (key === `40`) {
-//           temp = moveToDown();
-//           setA(temp);
-//         }
-// }
+}
 
   // React.useMemo(() => {
   //   document.addEventListener(`keydown`, event => {
@@ -292,28 +286,11 @@ useEffect(()=>{
   const listItem=a.map((val,index)=> <div style={{height:40,display:'flex'}}>{val.map((item,inde)=><div style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}{inde}</div>)}</div>
       );    
 
-          
-  return (
-  <div >
-    <div >{listItem}</div>
-    {/* <input autoFocus onKeyDown={oneKeyHandle} ></input> */}
-  </div>);
-}
-
-
-
-function App() {
   
-  const el=(
-    <div>
-     <GameField />
-     
-    </div>
-  )
   return (
     <div className="App">
-     {el}
-     
+      <div >{listItem}</div>
+      <input autoFocus onKeyDown={oneKeyHandle} ></input>
     </div>
   );
 }
