@@ -255,37 +255,49 @@ useEffect(()=>{
   },1000);
 },[temp]);
 
-  React.useMemo(() => {
-    document.addEventListener(`keydown`, event => {
-      console.log(event);
-      event.preventDefault();
-      if (event.keyCode == `37`) {
-        temp= moveToLeft();
-        setA(temp);
-      }
-      if (event.keyCode == `38`) {
-        temp= moveToUp();
-       setA(temp);
-      }
-      if (event.keyCode == `39`) {
-        temp= moveToRight();
-       setA(temp);
-      }
-      if (event.keyCode == `40`) {
-        temp = moveToDown();
-        setA(temp);
-      }
-    }, false);
-  }, []);
+
+// let oneKeyHandle=(e)=>{
+//   let key=e.keyCode;
+//   if (key === `40`) {
+//           temp = moveToDown();
+//           setA(temp);
+//         }
+// }
+
+  // React.useMemo(() => {
+  //   document.addEventListener(`keydown`, event => {
+  //     console.log(event);
+  //     event.preventDefault();
+  //     if (event.keyCode == `37`) {
+  //       temp= moveToLeft();
+  //       setA(temp);
+  //     }
+  //     if (event.keyCode == `38`) {
+  //       temp= moveToUp();
+  //      setA(temp);
+  //     }
+  //     if (event.keyCode == `39`) {
+  //       temp= moveToRight();
+  //      setA(temp);
+  //     }
+  //     if (event.keyCode == `40`) {
+  //       temp = moveToDown();
+  //       setA(temp);
+  //     }
+  //   }, false);
+  // }, []);
 
   
 
-  const listItem=a.map((val,index)=> <div style={{height:40}}>{val.map((item,inde)=><canvas style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}</canvas>)}</div>
+  const listItem=a.map((val,index)=> <div style={{height:40}}>{val.map((item,inde)=><div style={{ backgroundColor: setColor(item), border: 0,width:40,height:40 }}>{item}</div>)}</div>
       );    
 
           
   return (
-  <div style={{height:40}}>{listItem}</div>);
+  <div >
+    <div style={{display:'flex'}}>{listItem}</div>
+    {/* <input autoFocus onKeyDown={oneKeyHandle} ></input> */}
+  </div>);
 }
 
 
@@ -295,11 +307,13 @@ function App() {
   const el=(
     <div>
      <GameField />
+     
     </div>
   )
   return (
     <div className="App">
      {el}
+     
     </div>
   );
 }
